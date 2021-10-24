@@ -1,15 +1,14 @@
 import React from "react";
 
-const TOC = ({ films }) => {
-  function captureClick(e) {}
+const TOC = ({ films, onCaptureClick }) => {
   return (
     <div className="toc">
       <ul>
-        {films.map((film) => {
+        {films.map((film) => (
           <li>
-            <button onClick={(e) => captureClick(e)}>{film.title}</button>
-          </li>;
-        })}
+            <button onClick={(e) => onCaptureClick(e)}>{film.title}</button>
+          </li>
+        ))}
       </ul>
     </div>
   );

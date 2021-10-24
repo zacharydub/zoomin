@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import TOC from "./TOC";
-//import Details from "./Details";
+import Details from "./Details";
 function App() {
   const [films, setFilms] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  //const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState(null);
 
   const fetchFilms = async () => {
     setIsLoading(true);
@@ -35,12 +35,16 @@ function App() {
     fetchFilms();
   }, []);
 
+  function onCaptureClick(e) {
+    setSelected(e.target.innerText);
+  }
+
   return (
     <div className="App">
       {films.length > 0 ? (
         <>
-          <TOC films={films} />
-          {/*<Details selected={selected} />*/}
+          <TOC films={films} onCaptureClick={onCaptureClick} />
+          <Details selected={selected} />
         </>
       ) : (
         "No results yet"
