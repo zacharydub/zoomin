@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-
 import TOC from "./TOC";
-import Details from "./Details";
-
+//import Details from "./Details";
 function App() {
   const [films, setFilms] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  //const [selected, setSelected] = useState(null);
 
   const fetchFilms = async () => {
     setIsLoading(true);
@@ -16,21 +15,36 @@ function App() {
       if (!res.ok) {
         throw new Error("something went wrong");
       }
-
-      const data = await res.json();
+      const { results } = await res.json();
       const loadedFilms = [];
+      for (const movie in results) {
+        let title = results[movie].title;
+        let abstract = results[movie].opening_crawl;
+        loadedFilms.push({
+          title,
+          abstract,
+        });
+      }
+      setFilms(loadedFilms);
     } catch (err) {
       setError(error.message);
     }
+    setIsLoading(false);
   };
   useEffect(() => {
     fetchFilms();
-  }, [fetchFilms]);
+  }, []);
 
   return (
     <div className="App">
-      <TOC />
-      <Details />
+      {films.length > 0 ? (
+        <>
+          <TOC films={films} />
+          {/*<Details selected={selected} />*/}
+        </>
+      ) : (
+        "No results yet"
+      )}
     </div>
   );
 }
