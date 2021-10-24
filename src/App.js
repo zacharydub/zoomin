@@ -6,6 +6,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selected, setSelected] = useState({});
+  const [favorite, setFavorite] = useState(null);
 
   const fetchFilms = async () => {
     setIsLoading(true);
@@ -26,7 +27,7 @@ function App() {
       });
     }
     setFilms(loadedFilms);
-    setSelected(loadedFilms[0]);
+    setSelected(favorite ? favorite : loadedFilms[0]);
     //} catch (err) {
     //  setError(error.message);
     //}
@@ -41,13 +42,19 @@ function App() {
     let abstract = films.find((film) => film.title === title).abstract;
     setSelected({ title, abstract });
   }
+  function makeFavorite(e) {
+    let title =
+      e.target.previousElementSibling.previousElementSibling.innerText;
+    let abstract = films.find((film) => film.title === title).abstract;
+    setFavorite({ title, abstract });
+  }
 
   return (
     <div className="App">
       {films.length > 0 ? (
         <>
           <TOC films={films} onCaptureClick={onCaptureClick} />
-          <Details selected={selected} />
+          <Details selected={selected} onSelectFavorite={makeFavorite} />
         </>
       ) : (
         "No results yet"
