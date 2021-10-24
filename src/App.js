@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+
+import TOC from "./TOC";
+import Details from "./Details";
 
 function App() {
+  const [films, setFilms] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchFilms = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const res = await fetch("https://swapi.dev/api/films");
+      if (!res.ok) {
+        throw new Error("something went wrong");
+      }
+
+      const data = await res.json();
+      const loadedFilms = [];
+    } catch (err) {
+      setError(error.message);
+    }
+  };
+  useEffect(() => {
+    fetchFilms();
+  }, [fetchFilms]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <TOC />
+      <Details />
     </div>
   );
 }
