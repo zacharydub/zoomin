@@ -26,6 +26,7 @@ code {
 }
 .toc ul {
   list-style-type: none;
+  padding: 10px 15px;
 }
 .toc ul li {
   text-align: center;
@@ -39,4 +40,6 @@ code {
   height: 100vh;
   width: 75%;
   background-color: lightblue;
+  padding: 100px 50px;
+  text-align: center;
 }

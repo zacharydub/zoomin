@@ -5,30 +5,31 @@ function App() {
   const [films, setFilms] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState({});
 
   const fetchFilms = async () => {
     setIsLoading(true);
     setError(null);
-    try {
-      const res = await fetch("https://swapi.dev/api/films");
-      if (!res.ok) {
-        throw new Error("something went wrong");
-      }
-      const { results } = await res.json();
-      const loadedFilms = [];
-      for (const movie in results) {
-        let title = results[movie].title;
-        let abstract = results[movie].opening_crawl;
-        loadedFilms.push({
-          title,
-          abstract,
-        });
-      }
-      setFilms(loadedFilms);
-    } catch (err) {
-      setError(error.message);
+    //try {
+    const res = await fetch("https://swapi.dev/api/films");
+    if (!res.ok) {
+      throw new Error("something went wrong");
     }
+    const { results } = await res.json();
+    const loadedFilms = [];
+    for (const movie in results) {
+      let title = results[movie].title;
+      let abstract = results[movie].opening_crawl;
+      loadedFilms.push({
+        title,
+        abstract,
+      });
+    }
+    setFilms(loadedFilms);
+    setSelected(loadedFilms[0]);
+    //} catch (err) {
+    //  setError(error.message);
+    //}
     setIsLoading(false);
   };
   useEffect(() => {
@@ -36,7 +37,9 @@ function App() {
   }, []);
 
   function onCaptureClick(e) {
-    setSelected(e.target.innerText);
+    let title = e.target.innerText;
+    let abstract = films.find((film) => film.title === title).abstract;
+    setSelected({ title, abstract });
   }
 
   return (

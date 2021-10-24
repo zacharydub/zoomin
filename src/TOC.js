@@ -5,8 +5,8 @@ const TOC = ({ films, onCaptureClick }) => {
     <div className="toc">
       <ul>
         {films.map((film) => (
-          <li>
-            <button onClick={(e) => onCaptureClick(e)}>{film.title}</button>
+          <li key={film.title}>
+            <button onClick={onCaptureClick}>{film.title}</button>
           </li>
         ))}
       </ul>
