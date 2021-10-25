@@ -11,14 +11,7 @@ const TOC = ({ films, onCaptureClick, favorites }) => {
 
   return (
     <div className="toc">
-      <ul>
-        {/*{films.map((film) => (
-          <li key={film.title}>
-            <button onClick={onCaptureClick}>{film.title}</button>
-          </li>
-        ))}*/}
-        {mapListItems(films)}
-      </ul>
+      <ul>{mapListItems(films)}</ul>
       <div className="favorites">
         <h3>Favorites</h3>
         <ul>{mapListItems(favorites)}</ul>
