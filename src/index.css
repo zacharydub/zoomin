@@ -43,9 +43,13 @@ code {
   padding: 100px 50px;
   text-align: center;
 }
-@media (max-height: 825px) {
+@media (max-height: 725px) {
   .toc ul li {
     margin: 5px auto;
+  }
+  .toc ul {
+    padding: 5px;
+    margin: 0;
   }
 }
 
