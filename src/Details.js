@@ -1,7 +1,6 @@
 import React from "react";
 
 const Details = ({ selected, onSelectFavorite }) => {
-  console.log(selected);
   return (
     <div className="details">
       <h3>{selected.title}</h3>

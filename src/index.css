@@ -48,3 +48,11 @@ code {
     margin: 5px auto;
   }
 }
+
+.favorites {
+  border-top: 1px solid black;
+  text-align: center;
+}
+.favorites h3 {
+  text-decoration: underline;
+}
